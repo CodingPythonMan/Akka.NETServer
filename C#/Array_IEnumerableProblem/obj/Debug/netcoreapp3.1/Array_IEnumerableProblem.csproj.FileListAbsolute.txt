@@ -1,0 +1,14 @@
+D:\GItSource\Linked-In-Study\C#\Array_IEnumerableProblem\bin\Debug\netcoreapp3.1\Array_IEnumerableProblem.exe
+D:\GItSource\Linked-In-Study\C#\Array_IEnumerableProblem\bin\Debug\netcoreapp3.1\Array_IEnumerableProblem.deps.json
+D:\GItSource\Linked-In-Study\C#\Array_IEnumerableProblem\bin\Debug\netcoreapp3.1\Array_IEnumerableProblem.runtimeconfig.json
+D:\GItSource\Linked-In-Study\C#\Array_IEnumerableProblem\bin\Debug\netcoreapp3.1\Array_IEnumerableProblem.runtimeconfig.dev.json
+D:\GItSource\Linked-In-Study\C#\Array_IEnumerableProblem\bin\Debug\netcoreapp3.1\Array_IEnumerableProblem.dll
+D:\GItSource\Linked-In-Study\C#\Array_IEnumerableProblem\bin\Debug\netcoreapp3.1\Array_IEnumerableProblem.pdb
+D:\GItSource\Linked-In-Study\C#\Array_IEnumerableProblem\obj\Debug\netcoreapp3.1\Array_IEnumerableProblem.csproj.AssemblyReference.cache
+D:\GItSource\Linked-In-Study\C#\Array_IEnumerableProblem\obj\Debug\netcoreapp3.1\Array_IEnumerableProblem.GeneratedMSBuildEditorConfig.editorconfig
+D:\GItSource\Linked-In-Study\C#\Array_IEnumerableProblem\obj\Debug\netcoreapp3.1\Array_IEnumerableProblem.AssemblyInfoInputs.cache
+D:\GItSource\Linked-In-Study\C#\Array_IEnumerableProblem\obj\Debug\netcoreapp3.1\Array_IEnumerableProblem.AssemblyInfo.cs
+D:\GItSource\Linked-In-Study\C#\Array_IEnumerableProblem\obj\Debug\netcoreapp3.1\Array_IEnumerableProblem.csproj.CoreCompileInputs.cache
+D:\GItSource\Linked-In-Study\C#\Array_IEnumerableProblem\obj\Debug\netcoreapp3.1\Array_IEnumerableProblem.dll
+D:\GItSource\Linked-In-Study\C#\Array_IEnumerableProblem\obj\Debug\netcoreapp3.1\Array_IEnumerableProblem.pdb
+D:\GItSource\Linked-In-Study\C#\Array_IEnumerableProblem\obj\Debug\netcoreapp3.1\Array_IEnumerableProblem.genruntimeconfig.cache
