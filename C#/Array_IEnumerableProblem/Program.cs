@@ -30,7 +30,8 @@ namespace Array_IEnumerableProblem
 
         static void SolveArrayStoredType()
         {
-
+            //10, 4, 44, 69, 39, 56, 64, 31, 28, 14, 22, 50
+            
         }
     }
 }

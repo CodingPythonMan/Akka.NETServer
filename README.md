@@ -11,5 +11,6 @@
   + 기존 DB만 질의를 하는 질서에서 벗어나 컬렉션을 질의하는 방식이다. [자세히보기](http://taeyo.net/columns/View.aspx?SEQ=207&PSEQ=31&IDX=3)
   + Array_IEnumerable 폴더 안에 해당 내용을 가볍게 실습하였다.
 ### 2일차 - 1 : Array 에 관한 문제 ###
-  + Array 즉, 배열은 여러 리터럴 값을 저장하는데 사용된다.[자세히보기](https://www.tutorialsteacher.com/csharp/array-csharp)
+  + Array 즉, 배열은 여러 리터럴 값을 저장하는데 사용된다. [자세히보기](https://www.tutorialsteacher.com/csharp/array-csharp)
   + 반드시 배열 크기를 정해줘야하고, 다시 한번 여러 값 초기화 형식을 쓰지 못한다.
+  + 
