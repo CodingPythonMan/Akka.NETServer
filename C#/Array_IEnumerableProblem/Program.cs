@@ -8,6 +8,12 @@ namespace Array_IEnumerableProblem
     {
         static void Main(string[] args)
         {
+            //SolveArray_IEnumerableProblem01();
+            SolveArrayStoredType();
+        }
+
+        static void SolveArray_IEnumerableProblem01()
+        {
             string[] employees = { "Joe", "Bob", "Carol", "Alice", "Will" };
 
             //제네릭이 아닌 유형 또는 메소드 '식별자'는 유형 인수와 함께 사용할 수 없습니다.
@@ -20,6 +26,11 @@ namespace Array_IEnumerableProblem
             {
                 Console.WriteLine(employee);
             }
+        }
+
+        static void SolveArrayStoredType()
+        {
+
         }
     }
 }
