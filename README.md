@@ -17,6 +17,6 @@
 ### 3일차 : ref와 out의 차이점에 관한 문제 ### 
   + ref : ref 키워드는 참조로 인수를 전달한다. 이는 메소드에서 이 인수에 대해 
   + out : out 키워드는 똑같이 참조로 인수를 전달한다.
-  + 차이 : out은 초기화되지 않고 함수로 전달가능, ref는 호출메소드 내에서 변경될 수 있음.
-  + C#/Ref_Out 폴더 안에 실습
+  + 차이 : out은 초기화되지 않고 함수로 전달가능, ref는 호출메소드 내에서 변경될 수 있음. [자세히보기](https://www.c-sharpcorner.com/UploadFile/ff2f08/ref-vs-out-keywords-in-C-Sharp/)
+  + C#/Ref_Out 폴더 안에 실습하였다.
  
