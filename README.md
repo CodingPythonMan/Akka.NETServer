@@ -15,8 +15,9 @@
   + 반드시 배열 크기를 정해줘야하고, 다시 한번 여러 값 초기화 형식을 쓰지 못한다.
   + 같은 타입의 변수들과 컬렉션들을 저장할 수 있다.(대입하는 순간 리터럴이므로)
 ### 3일차 : ref와 out의 차이점에 관한 문제 ### 
-  + ref : ref 키워드는 참조로 인수를 전달한다. 이는 메소드에서 이 인수에 대해 
-  + out : out 키워드는 똑같이 참조로 인수를 전달한다.
-  + 차이 : out은 초기화되지 않고 함수로 전달가능, ref는 호출메소드 내에서 변경될 수 있음. [자세히보기](https://www.c-sharpcorner.com/UploadFile/ff2f08/ref-vs-out-keywords-in-C-Sharp/)
+  + ref, out 둘 다 참조로 인수를 전달한다. 그럼 뭐가 다른걸까?
+  + 차이
+     + out : 초기화되지 않고 함수로 전달하고, 반드시 호출 메소드 안에서 초기화됨
+     + ref : 호출 전 초기화도 가능하고, 인수로 보내진 변수 자체가 호출메소드 내에서 변경될 수 있음. [자세히보기](https://www.c-sharpcorner.com/UploadFile/ff2f08/ref-vs-out-keywords-in-C-Sharp/)
   + C#/Ref_Out 폴더 안에 실습하였다.
  

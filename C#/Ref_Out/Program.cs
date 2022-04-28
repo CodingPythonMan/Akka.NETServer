@@ -7,21 +7,31 @@ namespace Ref_Out
         static void Main(string[] args)
         {
             int whatIsRef = 3;
+            int whatIsOut = 103;
 
-            Console.Write("In Main Ref : " + whatIsRef);
-            Console.Write("In Main Out : " + whatIsRef);
+            Console.WriteLine("In Main Before Ref : " + whatIsRef);
+            Console.WriteLine("In Main Out : " + whatIsOut);
 
-            setRef(ref whatIsRef);
+            SetRef(ref whatIsRef);
+            SetOut(out whatIsOut);
+
+            Console.WriteLine("In Main After Ref : " + whatIsRef);
+            Console.WriteLine("In Main After Out : " + whatIsOut);
         }
 
-        static void setRef(ref int whatIsRef)
+        static void SetRef(ref int whatIsRefVal)
         {
+            whatIsRefVal += 1;
 
+            Console.WriteLine("In Method Ref : " + whatIsRefVal);
         }
 
-        static void setOut()
+        static void SetOut(out int whatIsOutVal)
         {
+            whatIsOutVal = 5;
+            whatIsOutVal += 1;
 
+            Console.WriteLine("In Method Out : " + whatIsOutVal);
         }
     }
 }
