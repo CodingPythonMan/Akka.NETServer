@@ -1,8 +1,0 @@
-{
-  "runtimeOptions": {
-    "additionalProbingPaths": [
-      "C:\\Users\\robol\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\robol\\.nuget\\packages"
-    ]
-  }
-}
