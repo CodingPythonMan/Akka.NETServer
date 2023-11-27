@@ -3,29 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32804.467
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "IDLCompiler", "IDLCompiler.vcxproj", "{396A1A2E-2533-4FBB-A7A1-025E555BEA8B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IDLCompiler", "IDLCompiler.csproj", "{11E1A2B0-ACF3-4B07-BFE1-123E8D7F0340}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|x64 = Debug|x64
-		Debug|x86 = Debug|x86
-		Release|x64 = Release|x64
-		Release|x86 = Release|x86
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{396A1A2E-2533-4FBB-A7A1-025E555BEA8B}.Debug|x64.ActiveCfg = Debug|x64
-		{396A1A2E-2533-4FBB-A7A1-025E555BEA8B}.Debug|x64.Build.0 = Debug|x64
-		{396A1A2E-2533-4FBB-A7A1-025E555BEA8B}.Debug|x86.ActiveCfg = Debug|Win32
-		{396A1A2E-2533-4FBB-A7A1-025E555BEA8B}.Debug|x86.Build.0 = Debug|Win32
-		{396A1A2E-2533-4FBB-A7A1-025E555BEA8B}.Release|x64.ActiveCfg = Release|x64
-		{396A1A2E-2533-4FBB-A7A1-025E555BEA8B}.Release|x64.Build.0 = Release|x64
-		{396A1A2E-2533-4FBB-A7A1-025E555BEA8B}.Release|x86.ActiveCfg = Release|Win32
-		{396A1A2E-2533-4FBB-A7A1-025E555BEA8B}.Release|x86.Build.0 = Release|Win32
+		{11E1A2B0-ACF3-4B07-BFE1-123E8D7F0340}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11E1A2B0-ACF3-4B07-BFE1-123E8D7F0340}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11E1A2B0-ACF3-4B07-BFE1-123E8D7F0340}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11E1A2B0-ACF3-4B07-BFE1-123E8D7F0340}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {0844635C-5BDB-4BD2-BF0D-541E74AA4F3F}
+		SolutionGuid = {6A6CC2AB-87FF-4556-A19E-4332E80DA494}
 	EndGlobalSection
 EndGlobal

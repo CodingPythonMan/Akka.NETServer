@@ -1,0 +1,5 @@
+D:\Tools\gitsource\IDLCompiler\obj\Debug\net6.0\IDLCompiler.csproj.AssemblyReference.cache
+D:\Tools\gitsource\IDLCompiler\obj\Debug\net6.0\IDLCompiler.GeneratedMSBuildEditorConfig.editorconfig
+D:\Tools\gitsource\IDLCompiler\obj\Debug\net6.0\IDLCompiler.AssemblyInfoInputs.cache
+D:\Tools\gitsource\IDLCompiler\obj\Debug\net6.0\IDLCompiler.AssemblyInfo.cs
+D:\Tools\gitsource\IDLCompiler\obj\Debug\net6.0\IDLCompiler.csproj.CoreCompileInputs.cache

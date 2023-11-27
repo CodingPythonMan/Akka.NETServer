@@ -1,5 +1,0 @@
-{
-	OutputPath	= "/TargetSource"
-	FileName	= "PacketInfo.dat"
-	SerializeBufferName	= "Packet"
-}
