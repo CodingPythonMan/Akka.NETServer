@@ -42,7 +42,7 @@ namespace IDLCompiler.Service
                         // 이 곳에서 반드시 넣어줘야하는 변수를 추가해 넣는다. 
                         int SemiIndex = lines[i].IndexOf(';');
                         string Valid = lines[i].Substring(j, SemiIndex);
-                        _ValidLines.Add(sb.ToString());
+                        _ValidLines.Add(Valid);
                         break;
                     }
                 }
@@ -93,18 +93,27 @@ namespace IDLCompiler.Service
 
         private string ReconsistLine(string Line)
         {
-            StringBuilder ReLine = new("void ");
+            StringBuilder ReLine = new($"void {Line}");
 
-            int Start = Line.IndexOf('(') + 1;
+            int Start = ReLine.ToString().IndexOf('(') + 1;
             var result = AnalyzeLine(Line);
 
             if (result.Count > 0)
+            {
                 ReLine.Insert(Start, "const MyList<Session*>& SessionList, ");
-            else
-                ReLine.Insert(Start, "const MyList<Session*>& SessionList");
+            }
 
             // 각 매개변수 앞에 const Type& 이걸 붙여줘야 한다.
-
+            int BanIndex = ReLine.ToString().IndexOf(',') + 1;
+            int i = 0;
+            while(BanIndex > 0)
+            {
+                ReLine.Insert(BanIndex, " const");
+                BanIndex = ReLine.ToString().IndexOf(' ', BanIndex + result[TYPE][i].Length);
+                ReLine.Insert(BanIndex, '&');
+                BanIndex = ReLine.ToString().IndexOf(',', BanIndex) + 1;
+                i++;
+            }
 
             return ReLine.ToString();
         }
@@ -117,8 +126,11 @@ namespace IDLCompiler.Service
 
             for (int i=0; i<_ValidLines.Count; i++)
             {
-                sb.AppendLine($"void {_ValidLines[i]}");
+                sb.AppendLine(ReconsistLine(_ValidLines[i]));
             }
+
+            // SendMessage 정의부
+            sb.AppendLine("void SendMessage(const MyList<Session*>& SessionList, const Packet& packet);");
 
             File.WriteAllText($"{PROXY_H_FILE}", sb.ToString());
         }
@@ -134,11 +146,12 @@ namespace IDLCompiler.Service
             for (int i = 0; i < _ValidLines.Count; i++)
             {
                 // 세미콜론 제거
-                sb.AppendLine($"void {_ValidLines[i].Substring(0, _ValidLines[i].Length - 1)}");
+                string Valid = ReconsistLine(_ValidLines[i]);
+                sb.AppendLine(Valid.Substring(0, Valid.Length - 1));
                 sb.AppendLine("{");
 
                 var Dict = AnalyzeLine(_ValidLines[i]);
-                if (Dict[VARIABLE].Count > EXCEPT_ARGUMENT)
+                if (Dict.Count > EXCEPT_ARGUMENT)
                 {
                     sb.Append("\tPacket packet;\n");
                     sb.Append("\tpacket ");
@@ -149,12 +162,22 @@ namespace IDLCompiler.Service
                     sb[sb.Length - 1] = ';';
                     sb.AppendLine();
 
-                    sb.AppendLine($"\tSendMessage({Dict[VARIABLE][0]}, &packet);");
+                    sb.AppendLine($"\tSendMessage(SessionList, &packet);");
                 }
                 
 
                 sb.AppendLine("}\n");
             }
+
+            // SendMessage 구현부
+            sb.AppendLine("void SendMessage(const MyList<Session*>& SessionList, const Packet& packet)");
+            sb.AppendLine("{");
+            sb.AppendLine("\tMyList<Session*>::iterator iter;");
+            sb.AppendLine("\tfor(iter=SessionList.begin(); iter != SessionList.end(); ++iter)");
+            sb.AppendLine("\t{");
+            sb.AppendLine("\t\t(*iter)->SendBuffer.Enqueue(packet.GetBufferPtr(), packet.GetDataSize());");
+            sb.AppendLine("\t}");
+            sb.AppendLine("}");
 
             File.WriteAllText($"{PROXY_CPP_FILE}", sb.ToString());
         }
