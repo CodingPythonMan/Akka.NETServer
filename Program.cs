@@ -7,6 +7,8 @@ MakeSourceService service = new();
 service.AnalyzeFile(PACKET_FILE);
 
 // 2. 소스파일 생성하기
+service.MakeMessageType();
+
 service.MakeProxyHeaderFile();
 service.MakeProxyCPPFile();
 

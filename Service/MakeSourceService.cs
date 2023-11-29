@@ -9,14 +9,18 @@ namespace IDLCompiler.Service
     public class MakeSourceService
     {
         const int NORMAL_ARGUMENT = 2;
-        const int EXCEPT_ARGUMENT = 1;
+        const int EXCEPT_ARGUMENT = 2;
 
         const string TYPE = "Type";
         const string VARIABLE = "Variable";
 
+        const string MESSAGE_TYPE_FILE = "Message.h";
 
         const string PROXY_CPP_FILE = "Proxy.cpp";
         const string PROXY_H_FILE = "Proxy.h";
+
+        const string STUB_CPP_FILE = "Stub.cpp";
+        const string STUB_H_FILE = "Stub.h";
 
         const string SERIALIZE = "Packet";
 
@@ -26,7 +30,7 @@ namespace IDLCompiler.Service
         public void AnalyzeFile(string ConfigFile)
         {
             //Temp
-            ConfigFile = $"D:\\Tools\\gitsource\\IDLCompiler\\{ConfigFile}";
+            //ConfigFile = $"D:\\Tools\\gitsource\\IDLCompiler\\{ConfigFile}";
 
             StreamReader reader = File.OpenText(ConfigFile);
             string text = reader.ReadToEnd();
@@ -98,24 +102,53 @@ namespace IDLCompiler.Service
             int Start = ReLine.ToString().IndexOf('(') + 1;
             var result = AnalyzeLine(Line);
 
-            if (result.Count > 0)
+            if(result.Count > 0)
+                ReLine.Insert(Start, "const MyList<Session*>& SessionList, const Session* session, ");
+            else
+                ReLine.Insert(Start, "const MyList<Session*>& SessionList, const Session* session");
+
+            int BanIndex = ReLine.ToString().IndexOf(',') + 1;
+            for(int i=1; i< EXCEPT_ARGUMENT;i++)
             {
-                ReLine.Insert(Start, "const MyList<Session*>& SessionList, ");
+                BanIndex = ReLine.ToString().IndexOf(',', BanIndex) + 1;
             }
 
             // 각 매개변수 앞에 const Type& 이걸 붙여줘야 한다.
-            int BanIndex = ReLine.ToString().IndexOf(',') + 1;
-            int i = 0;
-            while(BanIndex > 0)
+            if(result.Count > 0)
             {
-                ReLine.Insert(BanIndex, " const");
-                BanIndex = ReLine.ToString().IndexOf(' ', BanIndex + result[TYPE][i].Length);
-                ReLine.Insert(BanIndex, '&');
-                BanIndex = ReLine.ToString().IndexOf(',', BanIndex) + 1;
-                i++;
+                int Index = 0;
+                while (BanIndex > 0)
+                {
+                    ReLine.Insert(BanIndex, " const");
+                    BanIndex = ReLine.ToString().IndexOf(' ', BanIndex + result[TYPE][Index].Length);
+                    ReLine.Insert(BanIndex, '&');
+                    BanIndex = ReLine.ToString().IndexOf(',', BanIndex) + 1;
+                    Index++;
+                }
+            }
+            
+            return ReLine.ToString();
+        }
+
+        private string AnalyzeFunctionName(string Line)
+        {
+            int functionEnd = Line.IndexOf('(');
+
+            return Line.Substring(0, functionEnd);
+        }
+
+        public void MakeMessageType()
+        {
+            StringBuilder sb = new();
+
+            sb.AppendLine("#pragma once\n");
+
+            for (int i = 0; i < _ValidLines.Count; i++)
+            {
+                sb.AppendLine($"const unsigned char {AnalyzeFunctionName(_ValidLines[i])} = {i};".ToLower());
             }
 
-            return ReLine.ToString();
+            File.WriteAllText($"{MESSAGE_TYPE_FILE}", sb.ToString());
         }
 
         public void MakeProxyHeaderFile()
@@ -123,6 +156,10 @@ namespace IDLCompiler.Service
             StringBuilder sb = new();
 
             sb.AppendLine("#pragma once\n");
+            sb.AppendLine($"#include \"{SERIALIZE}.h\"");
+            sb.AppendLine($"#include \"{MESSAGE_TYPE_FILE}\"");
+            sb.AppendLine($"#include \"Session.h\"");
+            sb.AppendLine($"#include \"MyList.h\"\n");
 
             for (int i=0; i<_ValidLines.Count; i++)
             {
@@ -130,7 +167,7 @@ namespace IDLCompiler.Service
             }
 
             // SendMessage 정의부
-            sb.AppendLine("void SendMessage(const MyList<Session*>& SessionList, const Packet& packet);");
+            sb.AppendLine("void SendMessage(const MyList<Session*>& SessionList, const Session* session, const Packet& packet);");
 
             File.WriteAllText($"{PROXY_H_FILE}", sb.ToString());
         }
@@ -139,9 +176,7 @@ namespace IDLCompiler.Service
         {
             StringBuilder sb = new();
 
-            sb.AppendLine($"#include \"{PROXY_H_FILE}\"");
-            sb.AppendLine($"#include \"Packet.h\"");
-            sb.AppendLine($"#include \"Session.h\"\n");
+            sb.AppendLine($"#include \"{PROXY_H_FILE}\"\n");
 
             for (int i = 0; i < _ValidLines.Count; i++)
             {
@@ -151,32 +186,50 @@ namespace IDLCompiler.Service
                 sb.AppendLine("{");
 
                 var Dict = AnalyzeLine(_ValidLines[i]);
-                if (Dict.Count > EXCEPT_ARGUMENT)
+
+                sb.AppendLine("\tPacket packet;");
+
+                // 패킷 헤더 부분은 잠깐 넣어주기
+                sb.AppendLine("\tPACKET_HEADER header;");
+                sb.AppendLine("\theader.ByCode = 0x89;");
+                sb.Append("\theader.BySize = ");
+                if (Dict.Count > 0 && Dict[TYPE].Count > 0)
                 {
-                    sb.Append("\tPacket packet;\n");
+                    for (int j = 0; j < Dict[TYPE].Count; j++)
+                        sb.Append($"sizeof({Dict[TYPE][j]}) +");
+
+                    sb[sb.Length - 1] = ';';
+                    sb.AppendLine();
+                }
+                else
+                    sb.AppendLine("0;");
+                sb.AppendLine($"\theader.ByType = {AnalyzeFunctionName(_ValidLines[i]).ToLower()};");
+                sb.AppendLine("\tpacket.PutData((char*)&header, HEADER_SIZE);\n");     
+
+                if (Dict.Count > 0)
+                {
                     sb.Append("\tpacket ");
-                    for (int j = EXCEPT_ARGUMENT; j < Dict[VARIABLE].Count; j++)
+                    for (int j = 0; j < Dict[VARIABLE].Count; j++)
                     {
                         sb.Append($"<< {Dict[VARIABLE][j]} ");
                     }
                     sb[sb.Length - 1] = ';';
                     sb.AppendLine();
-
-                    sb.AppendLine($"\tSendMessage(SessionList, &packet);");
                 }
-                
+
+                sb.AppendLine($"\tSendMessage(SessionList, session, packet);");
 
                 sb.AppendLine("}\n");
             }
 
             // SendMessage 구현부
-            sb.AppendLine("void SendMessage(const MyList<Session*>& SessionList, const Packet& packet)");
+            sb.AppendLine("void SendMessage(const MyList<Session*>& SessionList, const Session* session, const Packet& packet)");
             sb.AppendLine("{");
-            sb.AppendLine("\tMyList<Session*>::iterator iter;");
+            /*sb.AppendLine("\tMyList<Session*>::iterator iter;");
             sb.AppendLine("\tfor(iter=SessionList.begin(); iter != SessionList.end(); ++iter)");
             sb.AppendLine("\t{");
             sb.AppendLine("\t\t(*iter)->SendBuffer.Enqueue(packet.GetBufferPtr(), packet.GetDataSize());");
-            sb.AppendLine("\t}");
+            sb.AppendLine("\t}");*/
             sb.AppendLine("}");
 
             File.WriteAllText($"{PROXY_CPP_FILE}", sb.ToString());
