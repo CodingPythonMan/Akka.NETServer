@@ -11,13 +11,9 @@ class Program
     static async Task Main()
     {
         // 설계를 천천히 해보자.
-        var system = ActorSystem.Create("GameSystem");
+        var system = ActorSystem.Create("BotSystem");
 
-        // 처음에 DB 연결
-        var dbActorRef = system.ActorOf(Props.Create(() => new DBActor()).WithRouter(new SmallestMailboxPool(30)), "DBPool");
-
-        // 가벼운 채팅이 되는 것부터 만들자.
-
+        // 모드를 선택해서 입장하는데, 1이 아니면, 봇으로서 채팅을 치게 만들자.
 
 
         await Task.Delay(Timeout.InfiniteTimeSpan);
