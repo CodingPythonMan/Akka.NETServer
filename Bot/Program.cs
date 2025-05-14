@@ -14,7 +14,7 @@ class Program
         var system = ActorSystem.Create("BotSystem");
 
         // 모드를 선택해서 입장하는데, 1이 아니면, 봇으로서 채팅을 치게 만들자.
-
+        
 
         await Task.Delay(Timeout.InfiniteTimeSpan);
     }

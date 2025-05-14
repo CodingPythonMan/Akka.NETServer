@@ -17,6 +17,7 @@ class Program
         var dbActorRef = system.ActorOf(Props.Create(() => new DBActor()).WithRouter(new SmallestMailboxPool(30)), "DBPool");
 
         // 가벼운 채팅이 되는 것부터 만들자.
+        // TCP 연결이 되는 것부터 만들어야 한다.
 
 
 
