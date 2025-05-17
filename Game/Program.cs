@@ -3,8 +3,8 @@ using Akka.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Core;
 using Akka.Routing;
+using Core.DB;
 
 class Program
 {
