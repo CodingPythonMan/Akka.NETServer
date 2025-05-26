@@ -16,17 +16,6 @@ namespace Core.DB
         {
             var redis = ConnectionMultiplexer.Connect("localhost");
             mRedis = redis.GetDatabase();
-
-            ReceiveAsync<LoadAccount>(async msg =>
-            {
-                var data = await mRedis.StringGetAsync(msg.AccountId);
-                Sender.Tell(data.HasValue ? data.ToString() : null);
-            });
-
-            ReceiveAsync<SaveAccount>(async msg =>
-            {
-                await mRedis.StringSetAsync(msg.AccountId, msg.JsonData);
-            });
         }
     }
 }

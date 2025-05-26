@@ -10,6 +10,7 @@ public class RedisActor : ReceiveActor
         var redis = ConnectionMultiplexer.Connect("localhost");
         _redis = redis.GetDatabase();
 
+        /*
         ReceiveAsync<GetAndIncreaseLevel>(async msg =>
         {
             var nicknameKey = $"user:{msg.AccountId}:nickname";
@@ -34,6 +35,6 @@ public class RedisActor : ReceiveActor
             await _redis.StringSetAsync(levelKey, level);
 
             Sender.Tell(new LevelResult(nickname, level));
-        });
+        });*/
     }
 }
